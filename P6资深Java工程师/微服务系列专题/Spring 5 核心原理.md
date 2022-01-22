@@ -508,5 +508,59 @@ Spring中常用的设计模式：
    }
    ```
 
+6. ###  代理模式
+
+   代理模式是指定义一个代理对象，以控制对目标对象的访问。代理对象在客户端和目标对象之间起着中介的作用。使用代理模式的目的主要有两个：
+
+   + 一是保护目标对象；
+   + 二是增强目标对象
+
+   ```java
+   interface Subject {
+       void request(Object param);
+   }
+   
+   class  Proxy implements Subject {
+   
+      private Subject targetObject;
+   
+      public Proxy(Subject targetObject){
+          this.targetObject = targetObject;
+      }
+       @Override
+       public void request(Object param) {
+           System.out.println("Proxy request");
+           before(param);
+           targetObject.request(param);
+           after(param);
+       }
+   
+       private void before(Object param){
+       }
+   
+       private void after(Object param){
+       }
+   }
+   
+   class RealSubject implements Subject {
+   
+       @Override
+       public void request(Object param) {
+           System.out.println("RealSubject request");
+       }
+   }
+   public class StaticProxy {
+   
+       public static void main(String[] args) {
+           RealSubject subject = new RealSubject();
+   
+           Proxy proxy = new Proxy(subject);
+           proxy.request(null);
+       }
+   }
+   ```
+
+   
+
 3. 
 
